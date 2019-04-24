@@ -13,6 +13,9 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  Major: '1'
+  Minor: '0'
+  Patch: '1'
 
 steps:
 - task: NuGetToolInstaller@0
@@ -36,11 +39,18 @@ steps:
   inputs:
     command: pack
     packagesToPack: '**/*.csproj'
+    versioningScheme: byPrereleaseNumber
+    majorVersion: '$(Major)'
+    minorVersion: '$(Minor)'
+    patchVersion: '$(Patch)'
 
 - task: NuGetCommand@2
   inputs:
     command: push
     nuGetFeedType: external
     publishFeedCredentials: 'connection'
-    versioningScheme: byEnvVar
-    versionEnvVar: MyVersion
+    versioningScheme: byBuildNumber
+
+- task: NuGetCommand@2
+  inputs:
+    command: pack
