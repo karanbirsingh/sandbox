@@ -26,6 +26,14 @@ steps:
     command: pack
     packagesToPack: '**/*.csproj'
 
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'connection'
+    versioningScheme: byEnvVar
+    versionEnvVar: MyVersion
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
