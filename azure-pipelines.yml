@@ -17,22 +17,36 @@ variables:
 steps:
 - task: NuGetToolInstaller@0
 
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'i semantic-release'
+
+- task: Npm@1
+  inputs:
+    command: custom
+    customCommand: run semantic-release --dry-run
+  env:
+    GH_TOKEN: $(GH_TOKEN)
+  displayName: npm run semantic-release (master branch only)
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['EnableSemanticRelease'], 'true'))
+
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
 
-- task: GitVersion@4
-  inputs:
-    updateAssemblyInfo: true
+#- task: GitVersion@4
+#  inputs:
+#    updateAssemblyInfo: true
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: '# Write your powershell commands here.
-$UtcDateTime = (Get-Date).ToUniversalTime()
-$FormattedDateTime = (Get-Date -Date $UtcDateTime -Format "yyyyMMdd-HHmmss")
-$CI_Version = "$env:GitVersion_NuGetVersion-ci-$FormattedDateTime"
-Write-Host ("##vso[task.setvariable variable=CI_Version;]$CI_Version")"
+#- task: PowerShell@2
+#  inputs:
+#    targetType: 'inline'
+#    script: '# Write your powershell commands here.
+#$UtcDateTime = (Get-Date).ToUniversalTime()
+#$FormattedDateTime = (Get-Date -Date $UtcDateTime -Format "yyyyMMdd-HHmmss")
+#$CI_Version = "$env:GitVersion_NuGetVersion-ci-$FormattedDateTime"
+#Write-Host ("##vso[task.setvariable variable=CI_Version;]$CI_Version")"
 # Use the environment variables input below to pass secret variables to this script.'
 
 - task: PowerShell@2
@@ -40,19 +54,9 @@ Write-Host ("##vso[task.setvariable variable=CI_Version;]$CI_Version")"
     targetType: 'inline'
     script: 'Write-Host "nuget $env:GitVersion_NuGetVersion majorminorpatch $env:GitVersion_MajorMinorPatch civersion $env:CI_Version"'
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: 'Write-Host "test"'
-
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -65,13 +69,13 @@ Write-Host ("##vso[task.setvariable variable=CI_Version;]$CI_Version")"
     command: pack
     packagesToPack: '**/*.csproj'
 
-- task: NuGetCommand@2
-  inputs:
-    command: push
-    nuGetFeedType: external
-    publishFeedCredentials: 'connection'
-    versioningScheme: byEnvVar
-    versionEnvVar: GitVersion_NuGetVersion
+#- task: NuGetCommand@2
+#  inputs:
+#    command: push
+#    nuGetFeedType: external
+#    publishFeedCredentials: 'connection'
+#    versioningScheme: byEnvVar
+#    versionEnvVar: GitVersion_NuGetVersion
 
 - task: NuGetCommand@2
   inputs:
