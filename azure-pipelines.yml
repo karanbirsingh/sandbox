@@ -22,6 +22,11 @@ steps:
     command: 'custom'
     customCommand: 'i semantic-release'
 
+- task: NodeTool@0
+  inputs:
+      versionSpec: '10.15.3'
+  displayName: use node 10.15.3
+
 - task: Npm@1
   inputs:
     command: custom
