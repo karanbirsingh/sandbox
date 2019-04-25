@@ -17,23 +17,19 @@ variables:
 steps:
 - task: NuGetToolInstaller@0
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    customCommand: 'i semantic-release'
+#- task: Npm@1
+#  inputs:
+#    command: 'custom'
+#    customCommand: 'i semantic-release'
 
 - task: NodeTool@0
   inputs:
       versionSpec: '10.15.3'
   displayName: use node 10.15.3
 
-- task: Npm@1
-  inputs:
-    command: custom
-    customCommand: npx semantic-release --dry-run
+- script: npx semantic-release --dry-run
   env:
     GH_TOKEN: $(GH_TOKEN)
-  displayName: npm run semantic-release (master branch only)
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['EnableSemanticRelease'], 'true'))
 
 - task: NuGetCommand@2
