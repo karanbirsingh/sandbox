@@ -4,3 +4,4 @@ if [ -z ${1+x} ]; then
     exit 1
 fi
 echo "Creating a release for version ${1}."
+export NEXTVERSION=${1}
