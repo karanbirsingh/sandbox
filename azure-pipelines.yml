@@ -71,7 +71,7 @@ Write-Host ("##vso[task.setvariable variable=CI_Version;]$CI_Version")"
     nuGetFeedType: external
     publishFeedCredentials: 'connection'
     versioningScheme: byEnvVar
-    versionEnvVar: CI_Version
+    versionEnvVar: GitVersion_NuGetVersion
 
 - task: NuGetCommand@2
   inputs:
