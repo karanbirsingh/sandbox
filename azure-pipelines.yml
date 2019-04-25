@@ -38,13 +38,13 @@ Write-Host ("##vso[task.setvariable variable=CI_Version;]$CI_Version")"
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    script: '# Write your powershell commands here.
-echo $env:GitVersion_NuGetVersion
-echo $env:GitVersion_MajorMinorPatch
-echo $env:CI_Version
-Write-Host "Hello World"
+    script: 'Write-Host "nuget $env:GitVersion_NuGetVersion majorminorpatch $env:GitVersion_MajorMinorPatch civersion $env:CI_Version"'
 
-# Use the environment variables input below to pass secret variables to this script.'
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'Write-Host "test"'
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
