@@ -21,6 +21,16 @@ steps:
   inputs:
     command: 'restore'
 
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: '# Write your powershell commands here.
+$UtcDateTime = (Get-Date).ToUniversalTime()
+$FormattedDateTime = (Get-Date -Date $UtcDateTime -Format "yyyyMMdd-HHmmss")
+$CI_Version = "$env:GITVERSION_MAJORMINORPATCH-ci-$FormattedDateTime"
+Write-Host ("##vso[task.setvariable variable=CI_Version;]$CI_Version")"
+
+# Use the environment variables input below to pass secret variables to this script.'
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -46,7 +56,8 @@ steps:
     command: push
     nuGetFeedType: external
     publishFeedCredentials: 'connection'
-    versioningScheme: byBuildNumber
+    versioningScheme: byEnvVar
+    versionEnvVar: CI_Version
 
 - task: NuGetCommand@2
   inputs:
