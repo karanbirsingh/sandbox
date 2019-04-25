@@ -7,7 +7,7 @@
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "prepare-release.sh ${nextRelease.version}"
+                "prepareCmd": "source prepare-release.sh ${nextRelease.version}"
             }
         ],
     ]
