@@ -17,10 +17,10 @@ variables:
 steps:
 - task: NuGetToolInstaller@0
 
-#- task: Npm@1
-#  inputs:
-#    command: 'custom'
-#    customCommand: 'i semantic-release'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'install -D @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/exec'
 
 - task: NodeTool@0
   inputs:
