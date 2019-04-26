@@ -13,7 +13,8 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  NEXTVERSION: 1.3.5
+  NEXTVERSION: 1.3.6
+  WRONGKEY: key
 
 steps:
 - task: NuGetToolInstaller@0
