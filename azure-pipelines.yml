@@ -13,7 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  NEXTVERSION: 1.4.0
+  NEXTVERSION: 1.4.1
   WRONGKEY: key
 
 steps:
@@ -45,6 +45,14 @@ steps:
   inputs:
       versionSpec: '10.15.3'
   displayName: use node 10.15.3
+
+
+- script: npx semantic-release --dry-run
+  env:
+    GH_TOKEN: $(GH_TOKEN)
+    NUGET_TOKEN: $(NUGET_TOKEN)
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['EnableSemanticRelease'], 'true'))
+
 
 - task: PowerShell@2
   inputs:
