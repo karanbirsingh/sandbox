@@ -46,7 +46,7 @@ steps:
   displayName: use node 10.15.3
 
 
-- script: npx semantic-release@beta --dry-run
+- script: npx semantic-release@16.0.0-beta --dry-run
   env:
     GH_TOKEN: $(GH_TOKEN)
     NUGET_TOKEN: $(NUGET_TOKEN)
@@ -60,7 +60,7 @@ steps:
 
 # Use the environment variables input below to pass secret variables to this script.'
 
-- script: npx semantic-release
+- script: npx semantic-release@16.0.0-beta
   env:
     GH_TOKEN: $(GH_TOKEN)
     NUGET_TOKEN: $(NUGET_TOKEN)
