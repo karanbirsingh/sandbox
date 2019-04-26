@@ -8,7 +8,7 @@
             "@semantic-release/exec",
             {
                 "prepareCmd": "echo `##vso[task.setvariable variable=nextVersion]${nextRelease.version}",
-                "publishCmd": "dotnet nuget push **\\Sandbox*.nupkg -k ${process.env.NUGET_TOKEN} -s https://api.nuget.org/v3/index.json",
+                "publishCmd": "dotnet nuget push **\\Sandb*.nupkg -k ${process.env.NUGET_TOKEN} -s https://api.nuget.org/v3/index.json",
             }
         ],
     ]
