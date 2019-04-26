@@ -8,7 +8,7 @@
             "@semantic-release/exec",
             {
                 "prepareCmd": "echo `##vso[task.setvariable variable=nextVersion]${nextRelease.version}",
-                "publishCmd": "nuget push ${process.env.BUILD_ARTIFACTSTAGINGDIRECTORY}\\SandboxLibrarySample.${nextRelease.version}.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${process.env.WRONGKEY}",
+                "publishCmd": "nuget push ${process.env.BUILD_ARTIFACTSTAGINGDIRECTORY}\\SandboxLibrarySample.${nextRelease.version}.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${process.env.NUGET_TOKEN}",
             }
         ],
     ]
