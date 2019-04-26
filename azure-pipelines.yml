@@ -37,6 +37,8 @@ steps:
   inputs:
     command: pack
     packagesToPack: '**/*.csproj'
+    versionEnvVar: NEXTVERSION
+    versioningScheme: byEnvVar
 
 - task: NodeTool@0
   inputs:
