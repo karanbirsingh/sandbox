@@ -22,6 +22,21 @@ steps:
     command: 'custom'
     customCommand: 'install -D @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/exec'
 
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: NuGetCommand@2
+  inputs:
+    command: pack
+    packagesToPack: '**/*.csproj'
+
 - task: NodeTool@0
   inputs:
       versionSpec: '10.15.3'
@@ -31,6 +46,11 @@ steps:
   env:
     GH_TOKEN: $(GH_TOKEN)
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['EnableSemanticRelease'], 'true'))
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'Write-Host "nuget $env:NEXTVERSION $env:GitVersion_NuGetVersion majorminorpatch $env:GitVersion_MajorMinorPatch civersion $env:CI_Version"'
 
 - task: NuGetCommand@2
   inputs:
@@ -50,25 +70,6 @@ steps:
 #Write-Host ("##vso[task.setvariable variable=CI_Version;]$CI_Version")"
 # Use the environment variables input below to pass secret variables to this script.'
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: 'Write-Host "nuget $env:NEXTVERSION $env:GitVersion_NuGetVersion majorminorpatch $env:GitVersion_MajorMinorPatch civersion $env:CI_Version"'
-
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
-- task: NuGetCommand@2
-  inputs:
-    command: pack
-    packagesToPack: '**/*.csproj'
 
 #- task: NuGetCommand@2
 #  inputs:
