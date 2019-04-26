@@ -78,6 +78,3 @@ steps:
 #    versioningScheme: byEnvVar
 #    versionEnvVar: GitVersion_NuGetVersion
 
-- task: NuGetCommand@2
-  inputs:
-    command: pack
