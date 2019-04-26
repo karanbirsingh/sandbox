@@ -13,7 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  NEXTVERSION: 1.4.4
+  NEXTVERSION: 1.4.3
 
 steps:
 - task: NuGetToolInstaller@0
