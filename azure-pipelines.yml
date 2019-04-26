@@ -13,7 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  NEXTVERSION: 1.4.1
+  NEXTVERSION: 1.4.2
   WRONGKEY: key
 
 steps:
