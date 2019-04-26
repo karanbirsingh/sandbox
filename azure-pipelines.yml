@@ -43,6 +43,16 @@ steps:
       versionSpec: '10.15.3'
   displayName: use node 10.15.3
 
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: '# Write your powershell commands here.
+Write-Host "ArtifactStagingDirectory contents:"
+gci $Env:BUILD_ARTIFACTSTAGINGDIRECTORY
+Write-Host "Hello World"
+
+# Use the environment variables input below to pass secret variables to this script.'
+
 - script: npx semantic-release
   env:
     GH_TOKEN: $(GH_TOKEN)
