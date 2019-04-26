@@ -15,7 +15,7 @@
             {
                 "assets": 
                 [
-                    {"path": "${process.env.BUILD_ARTIFACTSTAGINGDIRECTORY}\\SandboxLibrarySample.${nextRelease.version}.nupkg", "label": "NuGet package"},
+                    {"path": "${process.env.BUILD_ARTIFACTSTAGINGDIRECTORY}\\*.nupkg", "label": "NuGet package"},
                 ]
             }
         ],
