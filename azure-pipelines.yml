@@ -13,15 +13,15 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  NEXTVERSION: 1.4.4
+  NEXTVERSION: 1.4.5-beta
 
 steps:
 - task: NuGetToolInstaller@0
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    customCommand: 'install -D @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/exec'
+#- task: Npm@1
+#  inputs:
+#    command: 'custom'
+#    customCommand: 'install -D @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/exec'
 
 - task: NuGetCommand@2
   inputs:
@@ -40,17 +40,17 @@ steps:
     versionEnvVar: NEXTVERSION
     versioningScheme: byEnvVar
 
-- task: NodeTool@0
-  inputs:
-      versionSpec: '10.15.3'
-  displayName: use node 10.15.3
+#- task: NodeTool@0
+#  inputs:
+#      versionSpec: '10.15.3'
+#  displayName: use node 10.15.3
 
 
-- script: npx semantic-release@beta --dry-run
-  env:
-    GH_TOKEN: $(GH_TOKEN)
-    NUGET_TOKEN: $(NUGET_TOKEN)
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['EnableSemanticRelease'], 'true'))
+#- script: npx semantic-release@beta --dry-run
+#  env:
+#    GH_TOKEN: $(GH_TOKEN)
+#    NUGET_TOKEN: $(NUGET_TOKEN)
+#  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['EnableSemanticRelease'], 'true'))
 
 
 - task: PowerShell@2
@@ -60,20 +60,16 @@ steps:
 
 # Use the environment variables input below to pass secret variables to this script.'
 
-- script: npx semantic-release
-  env:
-    GH_TOKEN: $(GH_TOKEN)
-    NUGET_TOKEN: $(NUGET_TOKEN)
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['EnableSemanticRelease'], 'true'))
+#- script: npx semantic-release
+#  env:
+#    GH_TOKEN: $(GH_TOKEN)
+#    NUGET_TOKEN: $(NUGET_TOKEN)
+#  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['EnableSemanticRelease'], 'true'))
 
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: 'Write-Host "nuget $env:NEXTVERSION $env:GitVersion_NuGetVersion majorminorpatch $env:GitVersion_MajorMinorPatch civersion $env:CI_Version"'
-
-- task: NuGetCommand@2
-  inputs:
-    command: 'restore'
 
 #- task: GitVersion@4
 #  inputs:
@@ -90,11 +86,11 @@ steps:
 # Use the environment variables input below to pass secret variables to this script.'
 
 
-#- task: NuGetCommand@2
-#  inputs:
-#    command: push
-#    nuGetFeedType: external
-#    publishFeedCredentials: 'connection'
-#    versioningScheme: byEnvVar
-#    versionEnvVar: GitVersion_NuGetVersion
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'connection'
+    versioningScheme: byEnvVar
+    versionEnvVar: NEXTVERSION
 
