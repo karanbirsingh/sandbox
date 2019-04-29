@@ -108,6 +108,7 @@ Write-Host ("##vso[task.setvariable variable=NEXTVERSION;]$env:SemVerNumber-beta
     packagesToPack: '**/*.csproj'
     versionEnvVar: SemVerNumber
     versioningScheme: byEnvVar
+    outputDir: '$(Build.ArtifactStagingDirectory)/Release'
 
 - task: PublishBuildArtifacts@1
   inputs:
