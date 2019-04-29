@@ -18,6 +18,8 @@ variables:
 steps:
 - task: NuGetToolInstaller@0
 
+- script: echo "##vso[task.setvariable variable=NEXTVERSION;isOutput=true]$env:SemVerNumber"
+  name: setvarStep
 
 - task: PowerShell@2
   inputs:
