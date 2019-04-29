@@ -23,8 +23,7 @@ steps:
     targetType: 'inline'
     script: '$UtcDateTime = (Get-Date).ToUniversalTime();
 $FormattedDateTime = (Get-Date -Date $UtcDateTime -Format "yyyyMMdd-HHmmss");
-$CI_Version = "${env:SemVerNumber}-ci-$FormattedDateTime";
-Write-Host ("##vso[task.setvariable variable=NEXTVERSION;]$NEXTVERSION")"'
+Write-Host ("##vso[task.setvariable variable=NEXTVERSION;]$SemVerNumber-$FormattedDateTime")"'
 
 #- task: Npm@1
 #  inputs:
