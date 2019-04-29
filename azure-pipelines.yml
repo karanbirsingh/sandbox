@@ -18,15 +18,12 @@ variables:
 steps:
 - task: NuGetToolInstaller@0
 
-- script: echo "##vso[task.setvariable variable=NEXTVERSION;isOutput=true]$env:SemVerNumber"
-  name: setvarStep
-
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: '$UtcDateTime = (Get-Date).ToUniversalTime();
 $FormattedDateTime = (Get-Date -Date $UtcDateTime -Format "yyyyMMdd-HHmmss");
-$CI_Version = "$env:SemVerNumber-ci-$FormattedDateTime";
+$CI_Version = "$env:${SemVerNumber}-ci-$FormattedDateTime";
 Write-Host ("##vso[task.setvariable variable=NEXTVERSION;]$NEXTVERSION")"'
 
 #- task: Npm@1
