@@ -22,12 +22,10 @@ steps:
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    script: '# Write your powershell commands here.
-$UtcDateTime = (Get-Date).ToUniversalTime()
+    script: '$UtcDateTime = (Get-Date).ToUniversalTime()
 $FormattedDateTime = (Get-Date -Date $UtcDateTime -Format "yyyyMMdd-HHmmss")
 $CI_Version = "$env:SemVerNumber-ci-$FormattedDateTime"
-Write-Host ("##vso[task.setvariable variable=NEXTVERSION;]$NEXTVERSION")"
- Use the environment variables input below to pass secret variables to this script.'
+Write-Host ("##vso[task.setvariable variable=NEXTVERSION;]$NEXTVERSION")"'
 
 #- task: Npm@1
 #  inputs:
