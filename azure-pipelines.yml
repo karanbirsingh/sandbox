@@ -95,3 +95,14 @@ steps:
     versioningScheme: byEnvVar
     versionEnvVar: NEXTVERSION
 
+
+- task: NuGetCommand@2
+  inputs:
+    command: pack
+    packagesToPack: '**/*.csproj'
+    versionEnvVar: SemVerNumber
+    versioningScheme: byEnvVar
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    ArtifactName: 'drop'
