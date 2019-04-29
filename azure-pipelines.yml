@@ -13,11 +13,21 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  NEXTVERSION: 1.4.5-beta
   SemVerNumber: 1.4.5
 
 steps:
 - task: NuGetToolInstaller@0
+
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: '# Write your powershell commands here.
+$UtcDateTime = (Get-Date).ToUniversalTime()
+$FormattedDateTime = (Get-Date -Date $UtcDateTime -Format "yyyyMMdd-HHmmss")
+$CI_Version = "$env:SemVerNumber-ci-$FormattedDateTime"
+Write-Host ("##vso[task.setvariable variable=NEXTVERSION;]$NEXTVERSION")"
+ Use the environment variables input below to pass secret variables to this script.'
 
 #- task: Npm@1
 #  inputs:
