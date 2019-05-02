@@ -46,6 +46,7 @@ Write-Host ("##vso[task.setvariable variable=NEXTVERSION;]$env:SemVerNumber-beta
     packagesToPack: '**/*.csproj'
     versionEnvVar: NEXTVERSION
     versioningScheme: byEnvVar
+    outputDir: '$(Build.ArtifactStagingDirectory)/Prerelease'
 
 #- task: NodeTool@0
 #  inputs:
@@ -93,13 +94,13 @@ Write-Host ("##vso[task.setvariable variable=NEXTVERSION;]$env:SemVerNumber-beta
 # Use the environment variables input below to pass secret variables to this script.'
 
 
-- task: NuGetCommand@2
-  inputs:
-    command: push
-    nuGetFeedType: external
-    publishFeedCredentials: 'connection'
-    versioningScheme: byEnvVar
-    versionEnvVar: NEXTVERSION
+#- task: NuGetCommand@2
+#  inputs:
+#    command: push
+#    nuGetFeedType: external
+#    publishFeedCredentials: 'connection'
+#    versioningScheme: byEnvVar
+#    versionEnvVar: NEXTVERSION
 
 
 - task: NuGetCommand@2
