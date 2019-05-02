@@ -13,7 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  SemVerNumber: 1.4.8
+  SemVerNumber: 1.4.9
 
 steps:
 - task: NuGetToolInstaller@0
