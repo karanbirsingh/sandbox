@@ -20,6 +20,12 @@ steps:
   inputs:
     solution: '**\*.sln'
 
+- task: CopyFiles@2
+  displayName: 'Copy Files'
+  inputs:
+    Contents: '**\bin\debug\**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
