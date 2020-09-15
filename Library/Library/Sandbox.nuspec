@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>SandboxTestKaransin</id>
+    <version>$VersionString$</version>
+    <title>sandbox-test-karansin</title>
+    <summary>sandbox-test-karansin</summary>
+    <description>sandbox-test-karansin</description>
+    <projectUrl>https://github.com/karanbirsingh/sandbox</projectUrl>
+    <authors>test</authors>
+    <owners>test</owners>
+    <license type="expression">MIT</license>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <language>en-US</language>
+    <copyright>test</copyright>
+    <tags>test</tags>
+  </metadata>
+  <files>
+    <file src="bin\$configuration$\SandboxLibrarySample.dll" target="lib\net471" />
+  </files> 
+</package>
