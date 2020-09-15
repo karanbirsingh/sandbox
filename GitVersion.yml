@@ -1,9 +1,0 @@
-assembly-versioning-scheme: MajorMinorPatch
-major-version-bump-message: '\+semver:\s?(breaking|major)'
-minor-version-bump-message: '\+semver:\s?(feat|minor)'
-patch-version-bump-message: '\+semver:\s?(fix|patch)'
-commit-message-incrementing: MergeMessageOnly
-mode: Mainline
-branches:
-  master:
-    tag: beta
