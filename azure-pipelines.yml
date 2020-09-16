@@ -9,9 +9,10 @@ trigger:
 pool:
   vmImage: 'windows-2019'
 stages:
-- stage: A
+- stage: Build the package
   jobs:
-  - job: A1
+  - job: A
+    displayName: build and publish
     steps:
     - task: NuGetCommand@2
       inputs:
@@ -34,13 +35,13 @@ stages:
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
-- stage: B
+- stage: Deploy to NuGet
   dependsOn:
   - A
   condition: succeeded('A')
   jobs:
   - deployment: Deploy
-    displayName: deploy NuGet
+    displayName: NuGet push
     environment: 'deploy-env'
     strategy:
       runOnce:
